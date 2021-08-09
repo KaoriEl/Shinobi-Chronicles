@@ -17,14 +17,17 @@ class ServerAuthController extends Controller
         $this->secretKey = env("SECRET_KEY_BOT_API_KEY");
     }
     function index(){
-        dd($this->confirmation_code);
+        dd(csrf_token());
     }
 
-    function Auth(Request $request){
+    function auth(Request $request){
         if (isset($request)){
-            Log::withContext([
-                'request-id' => $request
-            ]);
+            switch ($request["type"]){
+                case "confirmation";
+                    echo $this->confirmation_code; // отправляем строку для подтверждения адреса
+                    break;
+            }
+
         }
     }
 }

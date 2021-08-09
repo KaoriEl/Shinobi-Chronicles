@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "839f496ec8f16d68f9c51f416e9b7086",
+    "content-hash": "17c9cf132f0e196bb0e3e164531301ae",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -192,6 +192,52 @@
                 "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.0"
             },
             "time": "2021-01-01T22:08:42+00:00"
+        },
+        {
+            "name": "digitalstars/simplevk",
+            "version": "v2.14.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/digitalstars/simplevk.git",
+                "reference": "bd5e0f6e52795006ca33355f8e9c847360dd0b21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/digitalstars/simplevk/zipball/bd5e0f6e52795006ca33355f8e9c847360dd0b21",
+                "reference": "bd5e0f6e52795006ca33355f8e9c847360dd0b21",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DigitalStar\\vk_api\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ZeRoX",
+                    "email": "as234zx15@yandex.ru"
+                },
+                {
+                    "name": "Runnin",
+                    "email": "mr.kirilll12@mail.ru"
+                }
+            ],
+            "description": "Library for easy work with VK com api",
+            "support": {
+                "issues": "https://github.com/digitalstars/simplevk/issues",
+                "source": "https://github.com/digitalstars/simplevk/tree/v3.0.0-beta.3"
+            },
+            "time": "2021-06-17T10:13:20+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -7799,7 +7845,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3|^8.0"
+        "php": "^7.3|^8.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"

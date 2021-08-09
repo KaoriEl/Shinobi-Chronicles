@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/vk_bot_callback', [ServerAuthController::class, 'Auth']);
+Route::post('/vk_bot_callback', [ServerAuthController::class, 'auth']);
