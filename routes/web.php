@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BotHandlerController;
 use App\Http\Controllers\ServerAuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/vk_bot_callback', [ServerAuthController::class, 'auth']);
+Route::post('/vk_bot_callback', [BotHandlerController::class, 'authVkBot']);

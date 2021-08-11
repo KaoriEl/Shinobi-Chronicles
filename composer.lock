@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17c9cf132f0e196bb0e3e164531301ae",
+    "content-hash": "69b30831434b6d868eb3da1a5b3de5c3",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -192,52 +192,6 @@
                 "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.0"
             },
             "time": "2021-01-01T22:08:42+00:00"
-        },
-        {
-            "name": "digitalstars/simplevk",
-            "version": "v2.14.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/digitalstars/simplevk.git",
-                "reference": "bd5e0f6e52795006ca33355f8e9c847360dd0b21"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/digitalstars/simplevk/zipball/bd5e0f6e52795006ca33355f8e9c847360dd0b21",
-                "reference": "bd5e0f6e52795006ca33355f8e9c847360dd0b21",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "php": ">=5.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "DigitalStar\\vk_api\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "ZeRoX",
-                    "email": "as234zx15@yandex.ru"
-                },
-                {
-                    "name": "Runnin",
-                    "email": "mr.kirilll12@mail.ru"
-                }
-            ],
-            "description": "Library for easy work with VK com api",
-            "support": {
-                "issues": "https://github.com/digitalstars/simplevk/issues",
-                "source": "https://github.com/digitalstars/simplevk/tree/v3.0.0-beta.3"
-            },
-            "time": "2021-06-17T10:13:20+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -5124,6 +5078,49 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.3"
             },
             "time": "2020-07-13T06:12:54+00:00"
+        },
+        {
+            "name": "vkcom/vk-php-sdk",
+            "version": "5.101.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/VKCOM/vk-php-sdk.git",
+                "reference": "46a8f76503050c0c6730359fc234a4d6448b8653"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/VKCOM/vk-php-sdk/zipball/46a8f76503050c0c6730359fc234a4d6448b8653",
+                "reference": "46a8f76503050c0c6730359fc234a4d6448b8653",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6",
+                "vkcom/vk-api-schema": "^5.80.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "VK\\": "src/VK"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "VK PHP SDK",
+            "homepage": "https://github.com/VKCOM/vk-php-sdk",
+            "keywords": [
+                "sdk",
+                "vk"
+            ],
+            "support": {
+                "issues": "https://github.com/VKCOM/vk-php-sdk/issues",
+                "source": "https://github.com/VKCOM/vk-php-sdk/tree/5.101.0"
+            },
+            "time": "2019-08-16T12:13:20+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
