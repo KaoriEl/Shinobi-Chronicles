@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\BotService\Context;
+use App\Services\BotService\MessageEvent\ContextEvent;
 use App\Services\BotService\VkEngine\VkMethods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +18,7 @@ class BotHandlerController extends Controller
     }
 
     function authVkBot(Request $request){
-
+        Log::channel('debug-channel')->debug("--------message_new-------\n" . $request . "\n\n\n");
         switch ($request["type"]){
             case "confirmation":
                 $response = Context::StrategySelect($request);
@@ -31,6 +32,16 @@ class BotHandlerController extends Controller
                     Log::channel('error-channel')->debug("--------(new VkSendMsg())->vk_send_message-------\n" . $err . "\n\n\n");
                 }
                 echo('ok');
+                break;
+            case "message_event":
+                $msg = ContextEvent::StrategySelect($request);
+                try{
+                    (new VkMethods())->vk_send_message($request["object"]["peer_id"], $msg);
+                }catch(\Exception $err){
+                    Log::channel('error-channel')->debug("--------(new VkSendMsg())->vk_send_message-------\n" . $err . "\n\n\n");
+                }
+                echo('ok');
+
         }
     }
 

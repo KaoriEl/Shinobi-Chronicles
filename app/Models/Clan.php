@@ -27,8 +27,8 @@ class Clan extends Model
 {
     use HasFactory;
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasMany(ShinobiUser::class);
+        return $this->hasOne(ShinobiUser::class);
     }
 }

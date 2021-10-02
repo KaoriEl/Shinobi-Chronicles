@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
 
-class Fight implements ChatStrategy
+class Location implements ChatStrategy
 {
     private array $keyboard;
 

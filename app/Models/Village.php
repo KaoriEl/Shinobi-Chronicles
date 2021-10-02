@@ -27,7 +27,7 @@ class Village extends Model
 {
     use HasFactory;
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ShinobiUser::class);
     }

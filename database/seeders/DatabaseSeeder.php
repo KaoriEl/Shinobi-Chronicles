@@ -13,7 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        (new ClanSeeder())->run();
-        (new VillagesSeeder())->run();
+//        (new ClanSeeder())->run();
+//        (new VillagesSeeder())->run();
+          (new ItemSeeder())->run();
+          (new ShopSeeder())->run();
     }
+
 }

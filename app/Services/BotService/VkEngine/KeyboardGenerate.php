@@ -22,11 +22,11 @@ class KeyboardGenerate
      * @param string $options  = "base" use a default keyboard, "new" generate a full new keyboard
      * @return array|string[]|void
      */
-    public function generate(array $data, string $options = "base", $one_time = false) {
+    public function generate(array $data, string $options = "base", $one_time = false, $split = false, $index = 0, $break_point = 2) {
         switch ($options) {
             case "base":
                 Log::channel('debug-channel')->debug(json_encode($data));
-                return $this->new_base_keyboard($data);
+                return $this->new_base_keyboard($data,$split,$break_point,$index);
                 break;
             case "new":
                 return $this->new_keyboard($data,$one_time);
@@ -39,13 +39,32 @@ class KeyboardGenerate
      * @param $data
      * @return array
      */
-    public function new_base_keyboard($data){
+    public function new_base_keyboard($data,$split,$break_point,$index): array
+    {
         $keyboard = $this->keyboard;
-        foreach ($data as $pair){
-            $torn_pair = $this->regex_data($pair);
-            $keyboard["buttons"][][]["action"] =  ['type' => $torn_pair[0], 'payload' => $torn_pair[1], 'label'=> $torn_pair[2]];
-            Log::channel('debug-channel')->debug("--------vk_config curl_error-------\n" . json_encode($keyboard) . "\n\n\n");
+        $count = 0;
+        if ($split == false) {
+            foreach ($data as $pair){
+                $torn_pair = $this->regex_data($pair);
+                $keyboard["buttons"][$index][]["action"] = ['type' => $torn_pair[0], 'payload' => $torn_pair[1], 'label'=> $torn_pair[2]];
+                Log::channel('debug-channel')->debug("--------vk_config curl_error-------\n" . json_encode($keyboard) . "\n\n\n");
+                $index++;
+            }
+        }else{
+            $index = 0;
+            foreach ($data as $pair){
+                if ($count >= $break_point){
+                    $break_point = $break_point * 2;
+                    $index++;
+                }
+                $count++;
+                $torn_pair = $this->regex_data($pair);
+                $keyboard["buttons"][$index][]["action"] = ['type' => $torn_pair[0], 'payload' => $torn_pair[1], 'label'=> $torn_pair[2]];
+                Log::channel('debug-channel')->debug("--------vk_config curl_error-------\n" . json_encode($keyboard) . "\n\n\n");
+
+            }
         }
+
         return $keyboard;
     }
 

@@ -4,6 +4,7 @@ namespace App\Services\BotService\Shop;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\UserController;
+use App\Models\ShinobiUser;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,23 @@ class ShopInfo implements ChatStrategy
         $this->keyboard = [
             "one_time" => false,
             "buttons" => [[
-            ]]];
+                ["action" => [
+                    "type" => "text",
+                    "payload" => '{"button": "1"}',
+                    "label" => "Обычный магазин"],
+                    "color" => "default"],
+                ["action" => [
+                    "type" => "text",
+                    "payload" => '{"button": "1"}',
+                    "label" => "Донат магазин"],
+                    "color" => "positive"],
+
+            ],[ ["action" => [
+                "type" => "text",
+                "payload" => '{"button": "1"}',
+                "label" => "Главное меню"],
+                "color" => "default"],]
+            ]];
 
     }
 
@@ -32,9 +49,16 @@ class ShopInfo implements ChatStrategy
                 'reply_markup' => $encodedKeyboard
             ];
         }else{
-            return ["text" => "🚫 Этот функционал еще в разработке",
-                "keyboard_status" => false,
+
+            $data = array();
+            $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data);
+            $encodedKeyboard = json_encode($keyboard);
+
+            return ["text" => "🐲 Пожалуйста, выберите интересующий вас магазин 🐲" ,
+                "keyboard_status" => true,
+                'reply_markup' => $encodedKeyboard
             ];
+
         }
     }
 }

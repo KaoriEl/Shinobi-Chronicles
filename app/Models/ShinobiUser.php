@@ -56,18 +56,17 @@ class ShinobiUser extends Model
         "ninjutsu",
         "taijutsu",
         "genjutsu",
-        "kekkei_genkai",
         "peer_id",
     ];
 
     public function clans(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Clan::class);
+        return $this->belongsTo(Clan::class, "clan_id");
     }
 
-    public function village(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function village(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasMany(Village::class);
+        return $this->belongsTo(Village::class, "village_id");
     }
 
 }

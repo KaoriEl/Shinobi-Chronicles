@@ -6,14 +6,14 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-curl": "*",
         "ext-json": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.3",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "vkcom/vk-php-sdk": "^5.101",
-        "ext-curl": "*"
+        "vkcom/vk-php-sdk": "^5.101"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.10",

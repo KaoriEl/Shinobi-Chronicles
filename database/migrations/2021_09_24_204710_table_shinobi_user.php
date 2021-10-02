@@ -25,6 +25,7 @@ class TableShinobiUser extends Migration
             $table->bigInteger('taijutsu');
             $table->bigInteger('genjutsu');
             $table->bigInteger('money')->default("0");
+            $table->bigInteger('donat_money')->default("0");
             $table->bigInteger('energy')->default("100");
             $table->text('role');
             $table->bigInteger('peer_id')->unique();

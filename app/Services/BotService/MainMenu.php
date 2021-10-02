@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Services\BotService\GenerateAcc;
+namespace App\Services\BotService;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\UserController;
+use App\Models\ShinobiUser;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
 
-class Register implements ChatStrategy
+class MainMenu implements ChatStrategy
 {
-
     private array $keyboard;
 
     public function __construct()
@@ -42,25 +42,26 @@ class Register implements ChatStrategy
 
     }
 
-    /**
-     * @throws \Exception
-     */
     public function HandleMessage(Request $request): array
     {
-        $status = (new UserController())->index($request);
-        $data = array();
-        $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data);
-        $encodedKeyboard = json_encode($keyboard);
-        if ($status == "Successful addition"){
-            return ["text" => "🐲 Поздравляю! 🐲\n🔥Твой персонаж успешно создан.\n🔥Теперь ты можешь начать игру.\n🔥Для справки по командам напиши /help",
+        $status = (new UserController())->CheckUser($request);
+        if ($status == "Successful addition") {
+            $data = array('text,{"button": "1"},Начать');
+            $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data, "new");
+            $encodedKeyboard = json_encode($keyboard);
+            return ["text" => "Вам нужно для начала написать команду: Начать ",
                 "keyboard_status" => true,
                 'reply_markup' => $encodedKeyboard
             ];
-        }else{
-            return ["text" => "🐲 Кажется вы уже зарегистрировались в боте, пожалуйста не пытайтесь обмануть систему. 🐲\n",
-                "keyboard_status" => false,
+        } else {
+            $user = ShinobiUser::wherePeerId($request["object"]["message"]["peer_id"])->first();
+            $data = array();
+            $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data);
+            $encodedKeyboard = json_encode($keyboard);
+            return ["text" => "🐲 Выход в главное меню 🐲",
+                "keyboard_status" => true,
+                'reply_markup' => $encodedKeyboard
             ];
         }
-
     }
 }
