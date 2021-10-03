@@ -4,6 +4,7 @@ namespace App\Services\BotService;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VKPhotoController;
 use App\Models\ShinobiUser;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
@@ -51,16 +52,18 @@ class MainMenu implements ChatStrategy
             $encodedKeyboard = json_encode($keyboard);
             return ["text" => "Вам нужно для начала написать команду: Начать ",
                 "keyboard_status" => true,
-                'reply_markup' => $encodedKeyboard
+                'reply_markup' => $encodedKeyboard,
             ];
         } else {
+            $attachments = (new VKPhotoController())->index($request, "MainMenu.jpg", "MainMenu");
             $user = ShinobiUser::wherePeerId($request["object"]["message"]["peer_id"])->first();
             $data = array();
             $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data);
             $encodedKeyboard = json_encode($keyboard);
             return ["text" => "🐲 Выход в главное меню 🐲",
                 "keyboard_status" => true,
-                'reply_markup' => $encodedKeyboard
+                'reply_markup' => $encodedKeyboard,
+                'attachments' => $attachments
             ];
         }
     }

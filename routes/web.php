@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\BotHandlerController;
 use App\Http\Controllers\ServerAuthController;
+use App\Http\Controllers\VKPhotoController;
+use App\Models\Item;
 use App\Models\ShinobiUser;
 use App\Models\ShopItem;
 use App\Models\UsersItem;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
+use App\Services\BotService\VkEngine\Regex;
 use App\Services\BotService\VkEngine\VkMethods;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -23,6 +26,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+    $pair = array(0=>"1",1=>10);
+    $user = new ShinobiUser();
+    $user_info = $user->wherePeerId(94964193)->first();
+    if ($user_info["money"] >= $pair[1]){
+        $user_info["money"] = $user_info["money"] - $pair[1];
+        $user_info->update(['money' => $user_info["money"]]);
+
+        $users_items = new UsersItem();
+        $users_items->item_id = $pair[0];
+        $users_items->shinobi_id = $user_info["id"];
+        $users_items->save();
+
+        return "buy complete";
+    }else{
+        return "no money";
+    }
+
 
 //
 //$tests = UsersItem::whereShinobiId(8)->get();

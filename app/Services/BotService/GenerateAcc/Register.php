@@ -4,6 +4,7 @@ namespace App\Services\BotService\GenerateAcc;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VKPhotoController;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
 
@@ -47,16 +48,18 @@ class Register implements ChatStrategy
      */
     public function HandleMessage(Request $request): array
     {
+        $attachments = (new VKPhotoController())->index($request, "MainMenu.jpg", "MainMenu");
         $status = (new UserController())->index($request);
         $data = array();
         $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data);
         $encodedKeyboard = json_encode($keyboard);
-        if ($status == "Successful addition"){
+        if ($status == "Successful addition") {
             return ["text" => "🐲 Поздравляю! 🐲\n🔥Твой персонаж успешно создан.\n🔥Теперь ты можешь начать игру.\n🔥Для справки по командам напиши /help",
                 "keyboard_status" => true,
-                'reply_markup' => $encodedKeyboard
+                'reply_markup' => $encodedKeyboard,
+                'attachments' => $attachments
             ];
-        }else{
+        } else {
             return ["text" => "🐲 Кажется вы уже зарегистрировались в боте, пожалуйста не пытайтесь обмануть систему. 🐲\n",
                 "keyboard_status" => false,
             ];

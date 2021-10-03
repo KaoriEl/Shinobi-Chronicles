@@ -4,6 +4,7 @@ namespace App\Services\BotService\Inventory;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\Api\UserItemController;
+use App\Http\Controllers\VKPhotoController;
 use App\Models\ShinobiUser;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
@@ -26,13 +27,14 @@ class InventoryPage implements ChatStrategy
 
     public function HandleMessage(Request $request): array
     {
+        $attachments = (new VKPhotoController())->index($request, "inventory.jpg", "Inventory");
         $user = ShinobiUser::wherePeerId($request["object"]["peer_id"])->first();
         $response = Http::get('http://' . env("API_DOMAIN") . '/api/user_items/' . $user["id"] . '?page=' . $request["object"]["payload"]["InventoryPage"]);
         $items = $response->json();
         if (count($items) > 0) {
             $data = array();
             foreach ($items as $item) {
-                switch ($item["status"]){
+                switch ($item["status"]) {
                     case "active":
                         $status = "Надето";
                         break;
@@ -40,29 +42,29 @@ class InventoryPage implements ChatStrategy
                         $status = "Не надето";
                         break;
                 }
-                array_push($data, 'callback,{"itemId": "' . $item["items"]["id"] . '"},' . $item["items"]["item_name"] . ' - '
+                array_push($data, 'callback,{"itemInventoryId": "' . $item["items"]["id"] . '*' . $request["object"]["payload"]["InventoryPage"] . '"},' . $item["items"]["item_name"] . ' - '
                     . $status . '');
             }
-            $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data,"base",false,false,0);;
+            array_push($data, 'callback,{"InventoryPage": "' . ($request["object"]["payload"]["InventoryPage"] + 1) . '"},Далее');
+            $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data, "base", false, false, 0);;
             $encodedKeyboard = json_encode($keyboard);
-            return ["text" => "🐲 Инвентарь: Страница № " . $request["object"]["payload"]["InventoryPage"] . " 🐲\n⚖ Нажмите на предмет для взаимодействия с ним.",
-                "keyboard_status" => true,
-                'reply_markup' => $encodedKeyboard
-            ];
-        }else{
+            $text = "🐲 Инвентарь: Страница № " . $request["object"]["payload"]["InventoryPage"] . " 🐲\n⚖ Нажмите на предмет для взаимодействия с ним.";
 
+        } else {
             $result = (new UserItemController())->paginate($user["id"]);
             $data = array();
             for ($i = 1; $i <= $result; $i++) {
-                array_push($data,'callback,{"InventoryPage": "' . $i . '"},'. $i .'');
+                array_push($data, 'callback,{"InventoryPage": "' . $i . '"},' . $i . '');
             }
-            $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data,"base",false,true,0);;
+            $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data, "base", false, true, 0);;
             $encodedKeyboard = json_encode($keyboard);
-            return ["text" => "🐲 Страница № ".$pair[0] ." 🐲\n⚖ На данной странице нет предметов." ,
-                "keyboard_status" => true,
-                'reply_markup' => $encodedKeyboard
-            ];
+            $text = "🐲 Страница № " . $pair[0] . " 🐲\n⚖ На данной странице нет предметов.";
         }
+        return ["text" => $text,
+            "keyboard_status" => true,
+            'reply_markup' => $encodedKeyboard,
+            'attachments' => $attachments
+        ];
 
     }
 }

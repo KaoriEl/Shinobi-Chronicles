@@ -9,11 +9,11 @@ class VkMethods
 {
     function vk_send_message($peer_id, $message ,$attachments = array())
     {
+        if (isset($message["attachments"])){
+            $attachments = $message["attachments"];
+        }
         switch ($message["keyboard_status"]){
             case "true":
-                if (isset($message["attachments"])){
-                    $attachments = $message["attachments"];
-                }
                 return (new VkConfig())->vkConfig('messages.send', array(
                     'peer_id'    => $peer_id,
                     'message'    => $message["text"],
@@ -22,9 +22,6 @@ class VkMethods
                     "keyboard" => $message["reply_markup"]
                 ));
             default:
-                if (isset($message["attachments"])){
-                    $attachments = $message["attachments"];
-                }
                 Log::channel('debug-channel')->debug("--------vk_config url-------\n" . "Я зашел в элсе" . "\n\n\n");
                 return (new VkConfig())->vkConfig('messages.send', array(
                     'peer_id'    => $peer_id,

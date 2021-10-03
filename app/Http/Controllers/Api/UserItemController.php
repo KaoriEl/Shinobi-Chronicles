@@ -32,7 +32,7 @@ class UserItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,10 +48,10 @@ class UserItemController extends Controller
      */
     public function show(int $id): \Illuminate\Http\JsonResponse
     {
-        $items = UsersItem::whereShinobiId($id)->paginate(6);
+        $items = UsersItem::whereShinobiId($id)->paginate(5);
         $items_model = array();
         $items_info = array();
-        foreach ($items as $item){
+        foreach ($items as $item) {
             array_push($items_model, $item);
             array_push($items_info, $item->items);
         }
@@ -61,13 +61,17 @@ class UserItemController extends Controller
     public function paginate($id): float
     {
         $count = UsersItem::whereShinobiId($id)->count();
-        return round( log($count,6)+1, 0 );
+        if ($count != 0) {
+            return round(log($count, 6) + 1, 0);
+        } else {
+            return 0;
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -78,8 +82,8 @@ class UserItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -90,7 +94,7 @@ class UserItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

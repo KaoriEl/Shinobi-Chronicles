@@ -23,7 +23,7 @@ class VKPhotoController extends Controller
             $peer_id = $request["object"]["peer_id"];
         }
         if (count($VkPhotos) < 1){
-            $photo = (new VkMethods())->_bot_uploadPhoto($request["object"]["message"]["peer_id"],resource_path()."\image\/" . $img_name);
+            $photo = (new VkMethods())->_bot_uploadPhoto($peer_id,resource_path()."\image\/" . $img_name);
             $attachments = array(
                 'photo'.$photo['owner_id'].'_'.$photo['id'],
             );

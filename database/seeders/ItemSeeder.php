@@ -36,8 +36,9 @@ class ItemSeeder extends Seeder
                 'taijutsu' => rand(1, 20),
                 'genjutsu' => rand(1, 20),
                 'clan' => "Кагуя",
+                'image' => "photo94964193_457267874",
                 'price' => rand(1, 20),
-                'currency' => "rie",
+                'currency' => "Рье",
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);

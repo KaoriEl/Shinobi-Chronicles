@@ -4,6 +4,7 @@ namespace App\Services\BotService\Shop;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\Api\ShopItemsController;
+use App\Http\Controllers\VKPhotoController;
 use App\Models\ShinobiUser;
 use App\Models\ShopItem;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
@@ -24,20 +25,28 @@ class ShopCommon implements ChatStrategy
     }
 
 
-
     public function HandleMessage(Request $request): array
     {
+        $attachments = (new VKPhotoController())->index($request, "ShopCommon.jpg", "ShopCommon");
         $result = (new ShopItemsController())->paginate("TentenShop");
         $user = ShinobiUser::wherePeerId($request["object"]["message"]["peer_id"])->first();
         $data = array();
         for ($i = 1; $i <= $result; $i++) {
-            array_push($data,'callback,{"TentenPage": "' . $i . '*TentenShop"},'. $i .'');
+            array_push($data, 'callback,{"TentenPage": "' . $i . '*TentenShop"},' . $i . '');
         }
         $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data, "base", false, true, 3);
         $encodedKeyboard = json_encode($keyboard);
-        return ["text" => "🐲 Здравствуйте, вы попали в лавку Тентен. 🐲\n⚖ Выбирайте снаряжение с умом.\n💵 Баланс: " . $user["money"] . " Рье",
-            "keyboard_status" => true,
-            'reply_markup' => $encodedKeyboard
-        ];
+        if ($result != 0) {
+            return ["text" => "🐲 Здравствуйте, вы попали в лавку Тентен. 🐲\n⚖ Выбирайте снаряжение с умом.\n💵 Баланс: " . $user["money"] . " Рье",
+                "keyboard_status" => true,
+                'reply_markup' => $encodedKeyboard,
+                'attachments' => $attachments
+            ];
+        } else {
+            return ["text" => "🐲 Здравствуйте, вы попали в лавку Тентен. 🐲\n⚖ В данный момент в магазине нет товаров.\n💵 Баланс: " . $user["money"] . " Рье",
+                "keyboard_status" => false,
+                'attachments' => $attachments
+            ];
+        }
     }
 }

@@ -16,10 +16,10 @@ class ShopItemsController
 
     public function show($shop): \Illuminate\Http\JsonResponse
     {
-        $items = ShopItem::whereStatus("active")->whereShop($shop)->paginate(6);
+        $items = ShopItem::whereStatus("active")->whereShop($shop)->paginate(5);
         $items_info = array();
-        foreach ($items as $item){
-            if ($item["status"] == "active"){
+        foreach ($items as $item) {
+            if ($item["status"] == "active") {
                 array_push($items_info, $item->items);
             }
         }
@@ -29,7 +29,11 @@ class ShopItemsController
     public function paginate($shop): float
     {
         $count = ShopItem::whereStatus("active")->whereShop($shop)->count();
-        return round( log($count,6)+1, 0 );
+        if ($count != 0) {
+            return round(log($count, 6) + 1, 0);
+        } else {
+            return 0;
+        }
     }
 
 }

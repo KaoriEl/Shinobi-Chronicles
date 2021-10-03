@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\ShinobiUser;
+use App\Models\UsersItem;
+use App\Services\BotService\VkEngine\Regex;
 use App\Services\BotService\VkEngine\VkMethods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,6 +51,31 @@ class UserController extends Controller
 
     public function GetUser(Request $request){
         return DB::table("shinobi_users")->where("peer_id", $request["object"]["message"]["peer_id"])->first();
+    }
+
+    public function BuyItem(Request $request): string
+    {
+        $pair = (new Regex())->regex("*", $request["object"]["payload"]["BuyItemId"]);
+        $user = new ShinobiUser();
+        $user_info = $user->wherePeerId($request["object"]["peer_id"])->first();
+
+        if ($user_info["money"] >=$pair[1]){
+            $user_info["money"] = $user_info["money"] - $pair[1];
+            $user->money = $user_info["money"];
+            $user_info->update(['money' => $user_info["money"]]);
+
+            $users_items = new UsersItem();
+            $users_items->item_id = $pair[0];
+            $users_items->shinobi_id = $user_info["id"];
+            $users_items->save();
+
+            return "buy complete";
+        }else{
+            return "no money";
+        }
+
+
+
     }
 
     public function CheckUser(Request $request): string
