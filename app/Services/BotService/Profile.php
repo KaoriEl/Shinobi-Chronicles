@@ -51,7 +51,9 @@ class Profile implements ChatStrategy
 🤜🏻 Тайдзюцу: " . $user->taijutsu . " ед. 🤛🏻
 👁 Гендзюцу: " . $user->genjutsu . " ед. 👁
 💵 Деньги: " . $user->money . " 💵
-⚡ Энергия: " . $user->energy . "  ⚡",
+⚡ Энергия: " . $user->energy . "  ⚡
+💪🏻 БМ: " . $user->battle_power . "  💪🏻
+",
                 "keyboard_status" => true,
                 'reply_markup' => $encodedKeyboard,
                 'attachments' => $attachments

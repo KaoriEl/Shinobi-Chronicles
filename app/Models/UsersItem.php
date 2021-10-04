@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|UsersItem whereShinobiId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UsersItem whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $status
+ * @property-read \App\Models\Item $items
+ * @method static \Illuminate\Database\Eloquent\Builder|UsersItem whereStatus($value)
  */
 class UsersItem extends Model
 {
@@ -32,6 +35,7 @@ class UsersItem extends Model
     protected $fillable = [
         "item_id",
         "shinobi_id",
+        "status"
     ];
 
     public function items(): \Illuminate\Database\Eloquent\Relations\BelongsTo

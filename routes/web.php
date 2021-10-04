@@ -27,22 +27,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $pair = array(0=>"1",1=>10);
-    $user = new ShinobiUser();
-    $user_info = $user->wherePeerId(94964193)->first();
-    if ($user_info["money"] >= $pair[1]){
-        $user_info["money"] = $user_info["money"] - $pair[1];
-        $user_info->update(['money' => $user_info["money"]]);
+    $item = UsersItem::whereId(17)->first();
+    $item->update(['status' => "active"]);
 
-        $users_items = new UsersItem();
-        $users_items->item_id = $pair[0];
-        $users_items->shinobi_id = $user_info["id"];
-        $users_items->save();
-
-        return "buy complete";
-    }else{
-        return "no money";
-    }
 
 
 //

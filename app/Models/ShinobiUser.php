@@ -44,6 +44,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ShinobiUser whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ShinobiUser whereVillageId($value)
  * @mixin \Eloquent
+ * @property int $battle_power
+ * @method static \Illuminate\Database\Eloquent\Builder|ShinobiUser whereBattlePower($value)
  */
 class ShinobiUser extends Model
 {
@@ -56,6 +58,7 @@ class ShinobiUser extends Model
         "ninjutsu",
         "taijutsu",
         "genjutsu",
+        "battle_power",
         "peer_id",
     ];
 

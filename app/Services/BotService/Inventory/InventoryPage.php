@@ -42,7 +42,7 @@ class InventoryPage implements ChatStrategy
                         $status = "Не надето";
                         break;
                 }
-                array_push($data, 'callback,{"itemInventoryId": "' . $item["items"]["id"] . '*' . $request["object"]["payload"]["InventoryPage"] . '"},' . $item["items"]["item_name"] . ' - '
+                array_push($data, 'callback,{"itemInventoryId": "' . $item["items"]["id"] . '*' . $request["object"]["payload"]["InventoryPage"] . '*' . $item["id"] .'*' . $item["status"] . '"},' . $item["items"]["item_name"] . ' - '
                     . $status . '');
             }
             array_push($data, 'callback,{"InventoryPage": "' . ($request["object"]["payload"]["InventoryPage"] + 1) . '"},Далее');

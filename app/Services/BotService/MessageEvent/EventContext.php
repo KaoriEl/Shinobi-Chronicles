@@ -6,7 +6,9 @@ use App\Contracts\ChatStrategy;
 use App\Models\ShinobiUser;
 use App\Services\BotService\Inventory\Inventory;
 use App\Services\BotService\Inventory\InventoryPage;
+use App\Services\BotService\Inventory\WorkWithItemsInventory\EquipItem;
 use App\Services\BotService\Inventory\WorkWithItemsInventory\ItemInfoInventory;
+use App\Services\BotService\Inventory\WorkWithItemsInventory\UnEquipItem;
 use App\Services\BotService\Shop\Tenten\TentenPage;
 use App\Services\BotService\Shop\WorkWithItems\BuyItem;
 use App\Services\BotService\Shop\WorkWithItems\ItemInfo;
@@ -37,8 +39,12 @@ class EventContext
             return (new ItemInfo())->HandleMessage($request);
         }elseif (isset($request["object"]["payload"]["BuyItemId"])){
             return (new BuyItem())->HandleMessage($request);
-        }elseif (isset($request["object"]["payload"]["InventoryItemId"])){
+        }elseif (isset($request["object"]["payload"]["itemInventoryId"])){
             return (new ItemInfoInventory())->HandleMessage($request);
+        }elseif (isset($request["object"]["payload"]["EquipItemId"])){
+            return (new EquipItem())->HandleMessage($request);
+        }elseif (isset($request["object"]["payload"]["UnEquipItemId"])){
+            return (new UnEquipItem())->HandleMessage($request);
         }
     }
 }

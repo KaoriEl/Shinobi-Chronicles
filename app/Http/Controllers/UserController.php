@@ -40,6 +40,7 @@ class UserController extends Controller
             $shinobi->ninjutsu = $ninjutsu;
             $shinobi->taijutsu = $taijutsu;
             $shinobi->genjutsu = $genjutsu;
+            $shinobi->battle_power = ($genjutsu+$taijutsu+$ninjutsu) * 100;
             $shinobi->role = "player";
             $shinobi->peer_id = $peer_id;
             $shinobi->save();

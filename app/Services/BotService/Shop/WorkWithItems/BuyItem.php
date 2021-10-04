@@ -28,8 +28,9 @@ class BuyItem implements ChatStrategy
 
     public function HandleMessage(Request $request): array
     {
-        $user_info = (new ShinobiUser())->wherePeerId($request["object"]["peer_id"])->first();
+
         $answer = (new UserController())->BuyItem($request);
+        $user_info = (new ShinobiUser())->wherePeerId($request["object"]["peer_id"])->first();
         $text = "🐲 Предмет успешно приобретен и перемещен в инвентарь. 🐲 \n";
         if ($answer == "buy complete"){
             $attachments = (new VKPhotoController())->index($request, "YesMoney.jpg", "BuyItem");
