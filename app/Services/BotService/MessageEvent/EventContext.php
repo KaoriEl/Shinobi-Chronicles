@@ -40,6 +40,5 @@ class EventContext
         }elseif (isset($request["object"]["payload"]["InventoryItemId"])){
             return (new ItemInfoInventory())->HandleMessage($request);
         }
-
     }
 }
