@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|VkPhoto wherePhoto($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VkPhoto whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $class
  */
 class VkPhoto extends Model
 {

@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Village whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Village whereVillageName($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ShinobiUser[] $users
+ * @property-read int|null $users_count
  */
 class Village extends Model
 {

@@ -15,8 +15,9 @@ class DatabaseSeeder extends Seeder
     {
 //        (new ClanSeeder())->run();
 //        (new VillagesSeeder())->run();
-          (new ItemSeeder())->run();
-          (new ShopSeeder())->run();
+//          (new ItemSeeder())->run();
+//          (new ShopSeeder())->run();
+          (new QuestsSeeder())->run();
     }
 
 }

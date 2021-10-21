@@ -58,6 +58,9 @@ class ShinobiUser extends Model
         "ninjutsu",
         "taijutsu",
         "genjutsu",
+        "genjutsu",
+        "energy",
+        "money",
         "battle_power",
         "peer_id",
     ];

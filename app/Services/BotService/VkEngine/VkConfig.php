@@ -57,14 +57,16 @@ class VkConfig
 
         $query = http_build_query($params);
         $url = $this->endpoint.$method.'?'.$query;
-        Log::channel('error-channel')->debug("--------vk_config url-------\n" . $url . "\n\n\n");
+
 
         $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $json = curl_exec($curl);
         $error = curl_error($curl);
         if ($error) {
-            Log::channel('error-channel')->debug("--------vk_config curl_error-------\n" . $error . "\n\n\n");
+
+            Log::channel('error-channel')->debug("--------vk_config curl_error-------\n" . $error . "\n\n\n" . $url . "\n\n\n");
             return $error;
         }
 

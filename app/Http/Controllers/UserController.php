@@ -51,7 +51,7 @@ class UserController extends Controller
     }
 
     public function GetUser(Request $request){
-        return DB::table("shinobi_users")->where("peer_id", $request["object"]["message"]["peer_id"])->first();
+        return ShinobiUser::wherePeerId($request["object"]["message"]["peer_id"])->first();
     }
 
     public function BuyItem(Request $request): string

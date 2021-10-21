@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Clan whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Clan whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\ShinobiUser|null $users
  */
 class Clan extends Model
 {

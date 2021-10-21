@@ -36,6 +36,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $currency
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereCurrency($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrice($value)
+ * @property string $image
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereImage($value)
  */
 class Item extends Model
 {
