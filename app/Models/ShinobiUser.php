@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property int $battle_power
  * @method static \Illuminate\Database\Eloquent\Builder|ShinobiUser whereBattlePower($value)
+ * @property-read \App\Models\QuestUser|null $active_quests
  */
 class ShinobiUser extends Model
 {
@@ -68,6 +69,11 @@ class ShinobiUser extends Model
     public function clans(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Clan::class, "clan_id");
+    }
+
+    public function active_quests(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(QuestUser::class, "shinobi_id");
     }
 
     public function village(): \Illuminate\Database\Eloquent\Relations\BelongsTo

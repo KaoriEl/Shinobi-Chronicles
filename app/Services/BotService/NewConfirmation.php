@@ -10,7 +10,7 @@ class NewConfirmation  implements ChatStrategy
     public $confirmation_code;
 
     function __construct(){
-        $this->confirmation_code = env("SERVER_RESPONSE_VK_API");
+        $this->confirmation_code = config("app.SERVER_RESPONSE_VK_API");
     }
 
     public function HandleMessage(Request $request): array

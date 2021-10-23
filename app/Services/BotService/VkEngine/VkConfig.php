@@ -12,9 +12,9 @@ class VkConfig
     private $endpoint;
 
     function __construct(){
-        $this->bot_api_token = env("VK_BOT_API_KEY");
-        $this->endpoint = env("VK_API_ENDPOINT");
-        $this->api_version = env("VK_API_VERSION");
+        $this->bot_api_token = config("app.VK_BOT_API_KEY");
+        $this->endpoint = config("app.VK_API_ENDPOINT");
+        $this->api_version = config("app.VK_API_VERSION");
     }
 
 

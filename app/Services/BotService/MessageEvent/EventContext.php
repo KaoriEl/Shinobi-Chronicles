@@ -9,6 +9,7 @@ use App\Services\BotService\Inventory\InventoryPage;
 use App\Services\BotService\Inventory\WorkWithItemsInventory\EquipItem;
 use App\Services\BotService\Inventory\WorkWithItemsInventory\ItemInfoInventory;
 use App\Services\BotService\Inventory\WorkWithItemsInventory\UnEquipItem;
+use App\Services\BotService\Location\LocationService;
 use App\Services\BotService\Quests\QuestActions\QuestStart;
 use App\Services\BotService\Shop\Tenten\TentenPage;
 use App\Services\BotService\Shop\WorkWithItems\BuyItem;
@@ -48,6 +49,10 @@ class EventContext
             return (new UnEquipItem())->HandleMessage($request);
         }elseif (isset($request["object"]["payload"]["QuestName"])){
             return (new QuestStart())->HandleMessage($request);
+        }elseif (isset($request["object"]["payload"]["Location"])){
+            return (new LocationService())->LocationChoose($request);
+        }elseif (isset($request["object"]["payload"]["Location"])){
+            return (new LocationService())->LocationChoose($request);
         }
     }
 }

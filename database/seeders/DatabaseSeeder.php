@@ -17,7 +17,10 @@ class DatabaseSeeder extends Seeder
 //        (new VillagesSeeder())->run();
 //          (new ItemSeeder())->run();
 //          (new ShopSeeder())->run();
-          (new QuestsSeeder())->run();
+//          (new QuestsSeeder())->run();
+//        (new Countrys())->run();
+//        (new Locations())->run();
+//        (new CountryLocation())->run();
     }
 
 }

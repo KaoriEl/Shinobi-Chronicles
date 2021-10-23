@@ -11,11 +11,6 @@ use Symfony\Component\Mime\MessageConverter;
 
 class BotHandlerController extends Controller
 {
-    private $confirmation_code;
-
-    function __construct(){
-        $this->confirmation_code = env("SERVER_RESPONSE_VK_API");
-    }
 
     function authVkBot(Request $request){
         Log::channel('debug-channel')->debug("--------message_new-------\n" . $request . "\n\n\n");

@@ -9,6 +9,7 @@ use App\Models\QuestUser;
 use App\Models\ShinobiUser;
 use App\Models\ShopItem;
 use App\Models\UsersItem;
+use App\Services\BotService\GTranslate\Gtranslate;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use App\Services\BotService\VkEngine\Regex;
 use App\Services\BotService\VkEngine\VkMethods;
@@ -30,30 +31,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $user =  new ShinobiUser();
-    $quests = QuestUser::where('created_at', '<', Carbon::now()->subMinutes(1))->get();
-    foreach ($quests as $quest){
-        $user_quest = $quest->users()->first();
-        $quest_info = $quest->quests()->first();
-        $text = "Задание '" . $quest_info->quests_name . "' успешно выполнено" ;
-        $msg = ["text" => $text,
-            "keyboard_status" => false,
-        ];
-        $test = (new VkMethods())->vk_send_message($user_quest->peer_id, $msg);
-        try {
-            $ninjutsu = $user_quest->ninjutsu + $quest_info->ninjutsu;
-            $taijutsu = $user_quest->taijutsu + $quest_info->taijutsu;
-            $genjutsu = $user_quest->genjutsu + $quest_info->genjutsu;
-            $money = $user_quest->money + $quest_info->reward_money;
-            $energy = $user_quest->energy - 25;
 
-//                QuestUser::findOrFail($quest->id)->delete();
-            dump($energy);
-        }catch (ModelNotFoundException $ex){
-            Log::channel('error-channel')->debug("--------QuestUser::findOrFail-------\n" . $ex . "\n\n\n");
+    $test2 = \App\Models\Location::get();
+    $data = array();
+
+    foreach ($test2 as $t){
+        if ((new Gtranslate())->gtranslate($t->country_pivot()->first()->country()->first()->name, 'ru', 'en') == "Country of wind"){
+            array_push($data,  'callback,{"Location":"LocationWind"},' . $t["name"]);
         }
     }
-    dd("ok");
+
+
+    dd($data);
 
 
 

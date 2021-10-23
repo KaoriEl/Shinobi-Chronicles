@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|QuestUser whereQuestsId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|QuestUser whereShinobiId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|QuestUser whereUpdatedAt($value)
+ * @property-read \App\Models\Quest $quests
+ * @property-read \App\Models\ShinobiUser $users
  */
 class QuestUser extends Model
 {
