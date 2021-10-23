@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class Countrys extends Seeder
+class EnemySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,12 +14,15 @@ class Countrys extends Seeder
      */
     public function run()
     {
-        $countrys = ["Страна ветра","Страна Воды", "Страна Железа", "Страна Звука","Страна Земли","Страна Молнии"];
+        $enemys = ["Разбойник","Влад"];
 
-        foreach ($countrys as $country) {
-            DB::table('countrys')->insert([
-                "name" => $country,
+        foreach ($enemys as $enemy) {
+            DB::table('enemys')->insert([
+                "name" => $enemy,
                 "status"=>"active",
+                'ninjutsu' => rand(1, 20),
+                'taijutsu' => rand(1, 20),
+                'genjutsu' => rand(1, 20),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
