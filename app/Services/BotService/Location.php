@@ -50,10 +50,10 @@ class Location implements ChatStrategy
                 $text = "🐲 Вы стоите у ворот своей деревни, и перед вами открываются огромные виды\n";
                 $text .= "🐲 Что же делать дальше? Куда мне пойти? Кем стать?\n";
                 $text .= "🐲 Множество подобных вопросов возникает у вас в голове, вам нужно выбрать свой путь ниндзя и следовать по нему.\n";
-                $test2 = Country::get();
+                $countrys = Country::get();
                 $data = array();
-                foreach ($test2 as $t){
-                    array_push($data,  'callback,{"Location":"' . (new Gtranslate())->gtranslate($t["name"], 'ru', 'en') . '"},' . $t["name"]);
+                foreach ($countrys as $country){
+                    array_push($data,  'callback,{"Location":"' . (new Gtranslate())->gtranslate($country["name"], 'ru', 'en') . '"},' . $country["name"]);
                 }
                 $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data, "base", false, true, 0);;
                 $encodedKeyboard = json_encode($keyboard);
