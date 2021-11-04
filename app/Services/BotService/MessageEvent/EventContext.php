@@ -14,6 +14,7 @@ use App\Services\BotService\Quests\QuestActions\QuestStart;
 use App\Services\BotService\Shop\Tenten\TentenPage;
 use App\Services\BotService\Shop\WorkWithItems\BuyItem;
 use App\Services\BotService\Shop\WorkWithItems\ItemInfo;
+use App\Services\BotService\Technicians\Technicians;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use App\Services\BotService\VkEngine\VkMethods;
 
@@ -53,6 +54,8 @@ class EventContext
             return (new LocationService())->LocationChoose($request);
         }elseif (isset($request["object"]["payload"]["Location"])){
             return (new LocationService())->LocationChoose($request);
+        }elseif (isset($request["object"]["payload"]["Technicians"])){
+            return (new Technicians())->HandleMessage($request);
         }
     }
 }

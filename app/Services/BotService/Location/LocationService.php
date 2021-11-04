@@ -23,7 +23,6 @@ class LocationService
     }
 
     public function LocationChoose($request){
-        $user = ShinobiUser::wherePeerId($request["object"]["peer_id"])->first();
         switch ($request["object"]["payload"]["Location"]){
             case "Country of wind":
                 return(new Land_of_the_Wind())->HandleMessage($request);

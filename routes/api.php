@@ -18,8 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::apiResource('/api/items', (string)[\App\Http\Controllers\ShopItemsController::class, 'paginate_items']);
-
 Route::apiResource('items', "App\Http\Controllers\Api\ShopItemsController");
 Route::apiResource('user_items', "App\Http\Controllers\Api\UserItemController");
+Route::apiResource('technician', "App\Http\Controllers\Api\TechniciansController");
 

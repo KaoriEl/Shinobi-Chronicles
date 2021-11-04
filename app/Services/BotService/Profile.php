@@ -39,8 +39,8 @@ class Profile implements ChatStrategy
         } else {
             $attachments = (new VKPhotoController())->index($request, "ChakraSheme.png", "Profile");
             $user = ShinobiUser::wherePeerId($request["object"]["message"]["peer_id"])->first();
-            $data = array('callback,{"Inventory": "inventory"},Инвентарь');
-            $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data, "base", false, false, 0);;
+            $data = array('callback,{"Inventory": "inventory"},👤 Инвентарь','callback,{"Technicians": "MyTechnicians"},👤 Техники','callback,{"Technicians": "LearnTechnicians"},㉆ Техники');
+            $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data, "base", false, true, 0);;
             $encodedKeyboard = json_encode($keyboard);
             return ["text" => "
 👤 Ваш профиль 👤
