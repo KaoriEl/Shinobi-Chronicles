@@ -20,8 +20,8 @@ class TableQuests extends Migration
             $table->bigInteger('taijutsu');
             $table->bigInteger('genjutsu');
             $table->bigInteger('reward_money');
-            $table->text('min_bm')->default(300);
-            $table->text('status')->default("active");
+            $table->bigInteger('min_bm')->default(300);
+            $table->string('status')->default("active");
             $table->timestamps();
         });
     }

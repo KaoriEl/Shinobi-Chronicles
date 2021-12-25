@@ -19,7 +19,7 @@ class TablePivotUserItems extends Migration
             $table->foreign('item_id')->references('id')->on('items');
             $table->bigInteger('shinobi_id')->unsigned();
             $table->foreign('shinobi_id')->references('id')->on('shinobi_users');
-            $table->text('status')->default("inactive");
+            $table->string('status')->default("inactive");
             $table->timestamps();
         });
     }
