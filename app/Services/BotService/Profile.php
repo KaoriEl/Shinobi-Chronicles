@@ -4,7 +4,7 @@ namespace App\Services\BotService;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\ShinobiUser;
 use App\Models\VkPhoto;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
@@ -37,7 +37,7 @@ class Profile implements ChatStrategy
                 'reply_markup' => $encodedKeyboard
             ];
         } else {
-            $attachments = (new VKPhotoController())->index($request, "ChakraSheme.png", "Profile");
+            $attachments = (new VkPhotoService())->index($request, "ChakraSheme.png", "Profile");
             $user = ShinobiUser::wherePeerId($request["object"]["message"]["peer_id"])->first();
             $data = array('callback,{"Inventory": "inventory"},👤 Инвентарь','callback,{"Technicians": "MyTechnicians"},👤 Техники','callback,{"Technicians": "LearnTechnicians"},㉆ Техники');
             $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data, "base", false, true, 0);;

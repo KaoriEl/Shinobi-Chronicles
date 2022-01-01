@@ -3,7 +3,7 @@
 namespace App\Services\BotService\Location\Land_of_the_Wind;
 
 use App\Contracts\ChatStrategy;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\Location;
 use App\Services\BotService\GTranslate\Gtranslate;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
@@ -26,7 +26,7 @@ class Land_of_the_Wind implements ChatStrategy
     public function HandleMessage(Request $request): array
     {
 
-        $attachments = (new VKPhotoController())->index($request, "WindCountry.jpg", "WindCountry");
+        $attachments = (new VkPhotoService())->index($request, "WindCountry.jpg", "WindCountry");
         $text = "🐲 Вы прибыли в Страну Ветра\n";
         $text .= "🐲 Где будете искать приключения?\n";
 

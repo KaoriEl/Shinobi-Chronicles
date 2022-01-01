@@ -4,6 +4,7 @@ namespace App\Services\BotService;
 
 use App\Contracts\ChatStrategy;
 use App\Services\BotService\GenerateAcc\Register;
+use App\Services\BotService\Help\AdministrationService;
 use App\Services\BotService\Help\HelpCommand;
 use App\Services\BotService\Quests\QuestChoice;
 use App\Services\BotService\Shop\ShopCommon;
@@ -29,8 +30,10 @@ class MessageContext
                     return (new RegisterAccInfo())->HandleMessage($request);
                 case "понял":
                     return (new Register())->HandleMessage($request);
-                case "/help":
+                case "faq":
                     return (new HelpCommand())->HandleMessage($request);
+                case "администрация":
+                    return (new AdministrationService())->HandleMessage($request);
                 case "профиль":
                     return (new Profile())->HandleMessage($request);
                 case "задания":

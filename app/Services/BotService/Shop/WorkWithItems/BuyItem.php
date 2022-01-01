@@ -4,7 +4,7 @@ namespace App\Services\BotService\Shop\WorkWithItems;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\Item;
 use App\Models\ShinobiUser;
 use App\Models\UsersItem;
@@ -33,12 +33,12 @@ class BuyItem implements ChatStrategy
         $user_info = (new ShinobiUser())->wherePeerId($request["object"]["peer_id"])->first();
         $text = "🐲 Предмет успешно приобретен и перемещен в инвентарь. 🐲 \n";
         if ($answer == "buy complete"){
-            $attachments = (new VKPhotoController())->index($request, "YesMoney.jpg", "BuyItem");
+            $attachments = (new VkPhotoService())->index($request, "YesMoney.jpg", "BuyItem");
             $text = "🐲 Предмет успешно приобретен и перемещен в инвентарь. 🐲 \n";
             $text .= "⚠ Внимание: предметы не экипируются автоматически, нужно зайти в инвентарь и экипировать их.\n";
             $text .= "💵 Баланс: " . $user_info["money"];
         }else{
-            $attachments = (new VKPhotoController())->index($request, "noMoney.jpg", "BuyItemNoMoney");
+            $attachments = (new VkPhotoService())->index($request, "noMoney.jpg", "BuyItemNoMoney");
             $text = "⚠ Кажется в вашем кошельке не хватает монет.\n";
             $text .= "💵 Баланс: " . $user_info["money"];
         }

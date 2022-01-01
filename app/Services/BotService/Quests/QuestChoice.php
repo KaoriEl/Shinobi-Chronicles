@@ -4,7 +4,7 @@ namespace App\Services\BotService\Quests;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\Quest;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
@@ -35,16 +35,16 @@ class QuestChoice implements ChatStrategy
                 'reply_markup' => $encodedKeyboard
             ];
         }else{
-            $attachments = (new VKPhotoController())->index($request, "MissionDesk.png", "QuestChoice");
+            $attachments = (new VkPhotoService())->index($request, "MissionDesk.png", "QuestChoice");
             $user = (new UserController())->GetUser($request);
             $quests = Quest::whereStatus("active")->get();
             $data = array();
-            foreach ($quests as $quest){
-                array_push($data, 'callback,{"QuestName": "'. $quest["id"] .'"},'.$quest["quests_name"].'');
-            }
-            $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data, "base", false, false, 0);;
-            $encodedKeyboard = json_encode($keyboard);
-            $text = "
+
+            if (count($quests) > 0){
+                foreach ($quests as $quest){
+                    array_push($data, 'callback,{"QuestName": "'. $quest["id"] .'"},'.$quest["quests_name"].'');
+                }
+                $text = "
 
 🏣 Вы поднимаетесь в Резиденцию Каге.
 Заходя в главный зал, вы попадаете в комнату ожидания, вокруг вас много шиноби и все они ждут задания.
@@ -59,8 +59,16 @@ class QuestChoice implements ChatStrategy
 👣 Вы наконец дождались и можете зайти в кабинет каге, для получения миссии.
 👤💬 Каге: Здравствуй " . $user["name"] . " сегодня для тебя доступно несколько заданий, вот они на столе можешь рассмотреть их и выбрать нужное тебе.
 Стол с миссиями:";
+            }else{
+                $keyboard_status = false;
+                $text = "Эх, сегодня у Каге нет новых заданий для вас.";
+
+            }
+
+            $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data, "base", false, false, 0);
+            $encodedKeyboard = json_encode($keyboard);
             return ["text" => $text,
-                "keyboard_status" => true,
+                "keyboard_status" => $keyboard_status ?? "true",
                 'reply_markup' => $encodedKeyboard,
                 'attachments' => $attachments
             ];

@@ -4,7 +4,7 @@ namespace App\Services\BotService\Inventory;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\Api\UserItemController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\ShinobiUser;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
@@ -26,7 +26,7 @@ class Inventory implements ChatStrategy
 
     public function HandleMessage(Request $request): array
     {
-        $attachments = (new VKPhotoController())->index($request, "inventory.jpg", "Inventory");
+        $attachments = (new VkPhotoService())->index($request, "inventory.jpg", "Inventory");
         $user = ShinobiUser::wherePeerId($request["object"]["peer_id"])->first();
         $result = (new UserItemController())->paginate($user["id"]);
 

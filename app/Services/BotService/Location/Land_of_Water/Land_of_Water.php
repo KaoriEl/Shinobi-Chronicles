@@ -3,7 +3,7 @@
 namespace App\Services\BotService\Location\Land_of_Water;
 
 use App\Contracts\ChatStrategy;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,7 @@ class Land_of_Water implements ChatStrategy
     public function HandleMessage(Request $request): array
     {
 
-        $attachments = (new VKPhotoController())->index($request, "Land_of_Water.png", "Land_of_Water");
+        $attachments = (new VkPhotoService())->index($request, "Land_of_Water.png", "Land_of_Water");
         $text = "🐲 Вы прибыли в Страну Воды\n";
         $text .= "🐲 Где будете искать приключения?\n";
         $data = array(

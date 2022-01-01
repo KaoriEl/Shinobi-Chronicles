@@ -4,7 +4,7 @@ namespace App\Services\BotService\Shop\WorkWithItems;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\Item;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use App\Services\BotService\VkEngine\Regex;

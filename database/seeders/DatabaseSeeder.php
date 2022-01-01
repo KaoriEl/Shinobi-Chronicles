@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Administrator;
 use App\Models\CountryLocation;
 use App\Models\EnemyLocation;
 use Illuminate\Database\Seeder;
@@ -15,18 +16,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        (new ClanSeeder())->run();
-        (new VillagesSeeder())->run();
-        (new ItemSeeder())->run();
-        (new ShopSeeder())->run();
-        (new QuestsSeeder())->run();
-        (new CountrysSeeder())->run();
-        (new LocationsSeeder())->run();
-        (new CountryLocationSeeder())->run();
-        (new EnemySeeder())->run();
-        (new EnemyItemSeeder())->run();
-        (new EnemyLocationSeeder())->run();
-        (new Technicians())->run();
+//        (new ClanSeeder())->run();
+//        (new VillagesSeeder())->run();
+//        (new ItemSeeder())->run();
+//        (new ShopSeeder())->run();
+//        (new QuestsSeeder())->run();
+//        (new CountrysSeeder())->run();
+//        (new LocationsSeeder())->run();
+//        (new CountryLocationSeeder())->run();
+//        (new EnemySeeder())->run();
+//        (new EnemyItemSeeder())->run();
+//        (new EnemyLocationSeeder())->run();
+//        (new Technicians())->run();
+        (new AdministratorSeeder())->run();
     }
 
 }

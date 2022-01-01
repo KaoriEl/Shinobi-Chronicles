@@ -3,7 +3,7 @@
 namespace App\Services\BotService\Location\Land_of_Lightning;
 
 use App\Contracts\ChatStrategy;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,7 @@ class Land_of_Lightning implements ChatStrategy
     public function HandleMessage(Request $request): array
     {
 
-        $attachments = (new VKPhotoController())->index($request, "Land_of_Lightning.png", "Land_of_Lightning");
+        $attachments = (new VkPhotoService())->index($request, "Land_of_Lightning.png", "Land_of_Lightning");
         $text = "🐲 Вы прибыли в Страну Молний\n";
         $text .= "🐲 Где будете искать приключения?\n";
         $data = array(

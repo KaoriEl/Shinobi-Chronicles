@@ -4,7 +4,7 @@ namespace App\Services\BotService\Shop;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\ShinobiUser;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
@@ -50,7 +50,7 @@ class ShopInfo implements ChatStrategy
                 'reply_markup' => $encodedKeyboard
             ];
         }else{
-            $attachments = (new VKPhotoController())->index($request, "ShopInfo.jpg", "ShopInfo");
+            $attachments = (new VkPhotoService())->index($request, "ShopInfo.jpg", "ShopInfo");
             $data = array();
             $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data);
             $encodedKeyboard = json_encode($keyboard);

@@ -4,7 +4,7 @@ namespace App\Services\BotService;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\ShinobiUser;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
@@ -33,13 +33,23 @@ class MainMenu implements ChatStrategy
                     "payload" => '{"button": "3"}',
                     "label" => "Задания"],
                     "color" => "default"]
+            ],[["action" => [
+                    "type" => "text",
+                    "payload" => '{"button": "4"}',
+                    "label" => "Магазин"],
+                    "color" => "default"],
+                ["action" => [
+                    "type" => "text",
+                    "payload" => '{"button": "5"}',
+                    "label" => "FAQ"],
+                    "color" => "default"]
             ], [["action" => [
                 "type" => "text",
                 "payload" => '{"button": "4"}',
-                "label" => "Магазин"],
-                "color" => "default"]
-            ]
-            ]];
+                "label" => "Администрация"],
+                "color" => "default"],]
+
+        ]];
 
     }
 
@@ -55,7 +65,7 @@ class MainMenu implements ChatStrategy
                 'reply_markup' => $encodedKeyboard,
             ];
         } else {
-            $attachments = (new VKPhotoController())->index($request, "MainMenu.jpg", "MainMenu");
+            $attachments = (new VkPhotoService())->index($request, "MainMenu.jpg", "MainMenu");
             $user = ShinobiUser::wherePeerId($request["object"]["message"]["peer_id"])->first();
             $data = array();
             $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data);

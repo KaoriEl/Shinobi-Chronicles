@@ -4,7 +4,7 @@ namespace App\Services\BotService\GenerateAcc;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
 
@@ -33,12 +33,21 @@ class Register implements ChatStrategy
                     "payload" => '{"button": "3"}',
                     "label" => "Задания"],
                     "color" => "default"]
-            ], [["action" => [
+            ],[
+                ["action" => [
                 "type" => "text",
                 "payload" => '{"button": "4"}',
                 "label" => "Магазин"],
                 "color" => "default"]
+
+                ["action" => [
+                    "type" => "text",
+                    "payload" => '{"button": "5"}',
+                    "label" => "FAQ"],
+                "color" => "default"]
+
             ]
+
             ]];
 
     }
@@ -48,7 +57,7 @@ class Register implements ChatStrategy
      */
     public function HandleMessage(Request $request): array
     {
-        $attachments = (new VKPhotoController())->index($request, "MainMenu.jpg", "MainMenu");
+        $attachments = (new VkPhotoService())->index($request, "MainMenu.jpg", "MainMenu");
         $status = (new UserController())->index($request);
         $data = array();
         $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data);

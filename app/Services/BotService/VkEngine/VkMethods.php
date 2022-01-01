@@ -12,6 +12,8 @@ class VkMethods
         if (isset($message["attachments"])){
             $attachments = $message["attachments"];
         }
+        Log::channel('debug-channel')->debug("--------vk_config url-------\n" . json_encode($message) . "\n\n\n");
+
         switch ($message["keyboard_status"]){
             case "true":
                 return (new VkConfig())->vkConfig('messages.send', array(

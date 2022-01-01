@@ -3,7 +3,7 @@
 namespace App\Services\BotService\Location\Land_of_Sound;
 
 use App\Contracts\ChatStrategy;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,7 @@ class Land_of_Sound implements ChatStrategy
     public function HandleMessage(Request $request): array
     {
 
-        $attachments = (new VKPhotoController())->index($request, "Land_of_Sound.jpg", "Land_of_Sound");
+        $attachments = (new VkPhotoService())->index($request, "Land_of_Sound.jpg", "Land_of_Sound");
         $text = "🐲 Вы прибыли в Страну Звука\n";
         $text .= "🐲 Где будете искать приключения?\n";
         $data = array(

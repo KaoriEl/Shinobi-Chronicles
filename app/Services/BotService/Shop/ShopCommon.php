@@ -4,7 +4,7 @@ namespace App\Services\BotService\Shop;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\Api\ShopItemsController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\ShinobiUser;
 use App\Models\ShopItem;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
@@ -27,7 +27,7 @@ class ShopCommon implements ChatStrategy
 
     public function HandleMessage(Request $request): array
     {
-        $attachments = (new VKPhotoController())->index($request, "ShopCommon.jpg", "ShopCommon");
+        $attachments = (new VkPhotoService())->index($request, "ShopCommon.jpg", "ShopCommon");
         $result = (new ShopItemsController())->paginate("TentenShop");
         $user = ShinobiUser::wherePeerId($request["object"]["message"]["peer_id"])->first();
         $data = array();

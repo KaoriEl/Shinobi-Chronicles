@@ -3,7 +3,7 @@
 namespace App\Services\BotService\Location\Iron_Country;
 
 use App\Contracts\ChatStrategy;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,7 @@ class Iron_Country implements ChatStrategy
     public function HandleMessage(Request $request): array
     {
 
-        $attachments = (new VKPhotoController())->index($request, "Iron_Country.png", "Iron_Country");
+        $attachments = (new VkPhotoService())->index($request, "Iron_Country.png", "Iron_Country");
         $text = "🐲 Вы прибыли в Страну Железа\n";
         $text .= "🐲 Где будете искать приключения?\n";
         $data = array(

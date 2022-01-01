@@ -4,7 +4,7 @@ namespace App\Services\BotService;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\Country;
 use App\Services\BotService\GTranslate\Gtranslate;
 use App\Services\BotService\Location\LocationService;
@@ -46,7 +46,7 @@ class Location implements ChatStrategy
                     "keyboard_status" => false,
                 ];
             }else{
-                $attachments = (new VKPhotoController())->index($request, "MapNaruto.jpg", "MapNaruto");
+                $attachments = (new VkPhotoService())->index($request, "MapNaruto.jpg", "MapNaruto");
                 $text = "🐲 Вы стоите у ворот своей деревни, и перед вами открываются огромные виды\n";
                 $text .= "🐲 Что же делать дальше? Куда мне пойти? Кем стать?\n";
                 $text .= "🐲 Множество подобных вопросов возникает у вас в голове, вам нужно выбрать свой путь ниндзя и следовать по нему.\n";

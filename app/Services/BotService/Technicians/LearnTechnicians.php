@@ -5,7 +5,7 @@ namespace App\Services\BotService\Technicians;
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\Api\ShopItemsController;
 use App\Http\Controllers\Api\TechniciansController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\ShinobiUser;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
@@ -27,7 +27,7 @@ class LearnTechnicians implements ChatStrategy
 
     public function HandleMessage(Request $request): array
     {
-        $attachments = (new VKPhotoController())->index($request, "ShopCommon.jpg", "ShopCommon");
+        $attachments = (new VkPhotoService())->index($request, "ShopCommon.jpg", "ShopCommon");
         $result = (new TechniciansController())->paginate();
 //        $user = ShinobiUser::wherePeerId($request["object"]["message"]["peer_id"])->first();
         $data = array();

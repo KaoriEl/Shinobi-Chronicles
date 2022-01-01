@@ -4,7 +4,7 @@ namespace App\Services\BotService\Technicians;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\Api\ShopItemsController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use Illuminate\Http\Request;
 

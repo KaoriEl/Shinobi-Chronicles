@@ -4,7 +4,7 @@ namespace App\Services\BotService\Shop\Tenten;
 
 use App\Contracts\ChatStrategy;
 use App\Http\Controllers\Api\ShopItemsController;
-use App\Http\Controllers\VKPhotoController;
+use App\Services\MediaService\Photo\VkPhotoService;
 use App\Models\ShinobiUser;
 use App\Services\BotService\VkEngine\KeyboardGenerate;
 use App\Services\BotService\VkEngine\Regex;
@@ -35,7 +35,7 @@ class TentenPage implements ChatStrategy
         $response = Http::get('http://' . env("API_DOMAIN") . '/api/items/' . $pair[1] . '?page=' . $pair[0]);
         $items = $response->json();
         if (count($items) > 0) {
-            $attachments = (new VKPhotoController())->index($request, "TentenPage.jpg", "TentenPage");
+            $attachments = (new VkPhotoService())->index($request, "TentenPage.jpg", "TentenPage");
             $data = array();
             foreach ($items as $item) {
                 array_push($data, 'callback,{"ShopItemId": "' . $item["id"] . '*' . $pair[0] . '"},' . $item["item_name"] . ' - '
@@ -50,7 +50,7 @@ class TentenPage implements ChatStrategy
                 'attachments' => $attachments
             ];
         } else {
-            $attachments = (new VKPhotoController())->index($request, "ShopCommon.jpg", "ShopCommon");
+            $attachments = (new VkPhotoService())->index($request, "ShopCommon.jpg", "ShopCommon");
             $result = (new ShopItemsController())->paginate("TentenShop");
             $data = array();
             for ($i = 1; $i <= $result; $i++) {
